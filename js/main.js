@@ -3,19 +3,26 @@ const {createApp} = Vue;
 const app = createApp({
 
     data () {
-        return{
-            message: 'Ciaone'
+        return {
+            listaEmail: []
         };
     },
     methods:{
         fetchData(){
-            anxios.get("https://flynn.boolean.careers/exercises/api/random/mail")
-            .then(function (resp) {
-                console.log(resp)
-            });
+            axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
+            .then((resp) => {
+
+                console.log(resp);
+
+                console.log(resp.data)
+
+                this.listaEmail.push(resp.data.response);
+            })
         }
     },
-    mouted () {
-        this.fetchData()
+    mounted () {
+        for(let i = 0; i < 10; i++){
+            this.fetchData();
+        }
     }
 }).mount('#app');
